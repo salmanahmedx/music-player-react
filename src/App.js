@@ -9,11 +9,16 @@ import data from "./util";
 function App() {
   //data() returns array of song details from util.js
   const [songs, setSongs] = useState(data());
-  const [currentSong, setCurrentSong] = useState(songs[0])
+  const [currentSong, setCurrentSong] = useState(songs[0]);
+  const [isPlaying, setIsPlaying] = useState(false);
   return (
     <div className="App">
       <Song currentSong={currentSong}></Song>
-      <Player></Player>
+      <Player
+        setIsPlaying={setIsPlaying}
+        isPlaying={isPlaying}
+        currentSong={currentSong}
+      ></Player>
     </div>
   );
 }
