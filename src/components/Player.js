@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faAngleLeft, faAngleRight, faPause } from "@fortawesome/free-solid-svg-icons"
 import { useState } from 'react';
+import { playAudio } from '../util';
 
 const Player = ({ currentSong, isPlaying, setIsPlaying, audioRef, songInfo, setSongInfo, songs, setCurrentSong, setSongs }) => {
 
@@ -52,10 +53,12 @@ const Player = ({ currentSong, isPlaying, setIsPlaying, audioRef, songInfo, setS
         }
         if (direction === "skip-back") {
             if ((currentIndex - 1) % songs.length === -1) {
+                playAudio(isPlaying, audioRef)
                 return setCurrentSong(songs[songs.length - 1])
             }
             setCurrentSong(songs[(currentIndex - 1) % songs.length])
         }
+        playAudio(isPlaying, audioRef)
     }
 
     return (
@@ -63,7 +66,7 @@ const Player = ({ currentSong, isPlaying, setIsPlaying, audioRef, songInfo, setS
             <div className="time-control">
                 <p>{getTime(songInfo.currentTime)}</p>
                 <input type="range" min={0} max={songInfo.duration || 0} value={songInfo.currentTime} onChange={dragHandler} />
-                <p>{getTime(songInfo.duration)}</p>
+                <p>{songInfo.duration ? getTime(songInfo.duration) : "0:00"}</p>
             </div>
 
             <div className="play-control">
