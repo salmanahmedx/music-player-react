@@ -5,7 +5,7 @@ import Nav from "./components/Nav";
 import Player from "./components/Player";
 import Song from "./components/Song";
 import "./style/style.scss";
-import data from "./util";
+import data from "./data";
 
 
 function App() {
@@ -43,6 +43,9 @@ function App() {
         setIsPlaying={setIsPlaying}
         isPlaying={isPlaying}
         currentSong={currentSong}
+        songs={songs}
+        setCurrentSong={setCurrentSong}
+        setSongs={setSongs}
       ></Player>
       <Library songs={songs} setCurrentSong={setCurrentSong} libraryStatus={libraryStatus} audioRef={audioRef} isPlaying={isPlaying} setSongs={setSongs}></Library>
       <audio onTimeUpdate={timeUpdateHandler} ref={audioRef} src={currentSong.audio} onLoadedMetadata={timeUpdateHandler}></audio>
