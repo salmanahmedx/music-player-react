@@ -8,3 +8,7 @@ export const playAudio = (isPlaying, audioRef) => {
         }
     }
 }
+
+//** one way of using promise **/
+
+//** Another one is ASYNC - AWAIT **/
