@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faAngleLeft, faAngleRight, faPause } from "@fortawesome/free-solid-svg-icons"
 import { useState } from 'react';
@@ -36,7 +36,6 @@ const Player = ({ currentSong, isPlaying, setIsPlaying, audioRef, songInfo, setS
         }
     }
 
-
     const getTime = (time) => {
         return Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2);
     }
@@ -61,11 +60,19 @@ const Player = ({ currentSong, isPlaying, setIsPlaying, audioRef, songInfo, setS
         playAudio(isPlaying, audioRef)
     }
 
+    //add style - animation
+    const trackAnimation = {
+        transform: `translateX(${songInfo.animationPercentage}%)`
+    }
+
     return (
         <div className='player'>
             <div className="time-control">
                 <p>{getTime(songInfo.currentTime)}</p>
-                <input type="range" min={0} max={songInfo.duration || 0} value={songInfo.currentTime} onChange={dragHandler} />
+                <div className="track" style={{ background: `linear-gradient(to right,${currentSong.color[0]}, ${currentSong.color[1]})` }}>
+                    <input type="range" min={0} max={songInfo.duration || 0} value={songInfo.currentTime} onChange={dragHandler} />
+                    <div className="animate-track" style={trackAnimation}></div>
+                </div>
                 <p>{songInfo.duration ? getTime(songInfo.duration) : "0:00"}</p>
             </div>
 
